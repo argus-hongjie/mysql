@@ -1,0 +1,18 @@
+language: java
+
+dist: trusty
+
+sudo: required
+
+services:
+  - docker
+  
+jdk: oraclejdk8
+
+before_install:
+  - >
+        docker pull ruwen/mysql-server-5.1
+        docker run -p 127.0.0.1:3306:3306 --name mysql-51 -e MYSQL_ROOT_PASSWORD= -d mtirsel/mysql-5.1 mysqld --datadir=/var/lib/mysql --user=mysql --server-id=1 --log-bin=/var/lib/mysql/mysql-bin.log --binlog-format=row
+        docker ps -a
+        mysql -u root --version
+        mysqladmin ping -h127.0.0.1 -P3306
