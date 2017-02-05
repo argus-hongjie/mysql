@@ -15,7 +15,6 @@ before_install:
 
   - sudo service mysql status
   - mysql -u root -p mysql --version
-  - telnet 127.0.0.1 3306
   - mysqladmin ping -h127.0.0.1 -P3306
 
 script:
