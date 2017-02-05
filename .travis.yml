@@ -7,6 +7,11 @@ services:
 jdk: oraclejdk8
 
 before_install:
+  - service --status-all
+  - initctl list
+  - ls /etc/init/*.conf
+  - echo manual | sudo tee /etc/init/mysql.override
+
   - mysqladmin ping -h127.0.0.1 -P3306
   - sudo service mysql status
   - mysql -u root -p mysql --version
