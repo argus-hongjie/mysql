@@ -19,14 +19,16 @@ before_install:
   - sudo rm -rf /var/lib/mysql
   - sudo truncate -s 0 /var/log/mysql/error.log
 
+  - container_id=$(mktemp)
   - docker pull mtirsel/mysql-5.1
-  - docker run -p 127.0.0.1:3306:3306 --name mysql-51 -e MYSQL_ROOT_PASSWORD= -d mtirsel/mysql-5.1 mysqld --datadir=/var/lib/mysql --user=mysql --server-id=1 --log-bin=/var/lib/mysql/mysql-bin.log --binlog-format=row
+  - 'docker run -p 127.0.0.1:3306:3306 --name mysql-51 -e MYSQL_ROOT_PASSWORD= -d mtirsel/mysql-5.1 mysqld --datadir=/var/lib/mysql --user=mysql --server-id=1 --log-bin=/var/lib/mysql/mysql-bin.log --binlog-format=row  > "${container_id}"'
   - docker ps -a
+  - cat ${container_id}
 
 
-  - sudo service mysql status
-  - mysql -u root -p mysql --version
-  - mysqladmin ping -h127.0.0.1 -P3306
+  #- sudo service mysql status
+  #- mysql -u root -p mysql --version
+  #- mysqladmin ping -h127.0.0.1 -P3306
 
    # Some MySQL debugging (show all the logs).
   - sudo docker exec --tty "$(cat ${container_id})" env TERM=xterm ls -lah /var/log
