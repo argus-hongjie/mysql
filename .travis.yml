@@ -26,26 +26,25 @@ before_install:
 
 
   #- sudo service mysql status
-  - mysqladmin ping -h127.0.0.1 -P3306
-  - mysql -u root -P 3306 -h 127.0.0.1 --version
+  #- mysqladmin ping -h127.0.0.1 -P3306
+  #- mysql -u root -P 3306 -h 127.0.0.1 --version
 
 
    # Some MySQL debugging (show all the logs).
-  - sudo docker exec --tty "$(cat ${container_id})" env TERM=xterm ls -lah /var/log
-  - sudo docker exec --tty "$(cat ${container_id})" env TERM=xterm cat /var/log/mysql/error.log || true
-  - sudo docker exec --tty "$(cat ${container_id})" env TERM=xterm cat /var/log/mysql.err || true
+  - docker exec -i mysql-51 mysql -uroot --version
+  - docker exec -i mysql-51 mysql -uroot <<< "select database();select now();"
+  - docker exec -i mysql-51 mysql -uroot < dump.sql
+  - docker exec -i mysql-51 ls -lah /var/log
+  - docker exec -i mysql-51 cat /var/log/mysql/error.log || true
+  - docker exec -i mysql-51 cat /var/log/mysql.err || true
 
   # Check to make sure we can connect to MySQL via Unix socket.
   - >
-    sudo docker exec "$(cat ${container_id})" mysql -u root -proot -e 'show databases;'
-    | grep -q 'performance_schema'
-    && (echo 'MySQL running normally' && exit 0)
+    docker exec -i mysql-51 mysql -u root -e 'show databases;' | grep -q 'performance_schema' && (echo 'MySQL running normally' && exit 0)
     || (echo 'MySQL not running' && exit 1)
   # Check to make sure we can connect to MySQL via TCP.
   - >
-    sudo docker exec "$(cat ${container_id})" mysql -u root -proot -h 127.0.0.1 -e 'show databases;'
-    | grep -q 'performance_schema'
-    && (echo 'MySQL running normally' && exit 0)
+    sudo docker exec "$(cat ${container_id})" mysql -u root -proot -h 127.0.0.1 -e 'show databases;' | grep -q 'performance_schema' && (echo 'MySQL running normally' && exit 0)
     || (echo 'MySQL not running' && exit 1)
 
 script:
