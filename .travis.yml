@@ -21,7 +21,7 @@ before_install:
   - sudo truncate -s 0 /var/log/mysql/error.log
 
   - docker pull mtirsel/mysql-5.1
-  - docker run -p 127.0.0.1:3306:3306 --name mysql-51 -e MYSQL_ROOT_PASSWORD= -d mtirsel/mysql-5.1 mysqld --datadir=/var/lib/mysql --user=mysql --server-id=1 --log-bin=/var/lib/mysql/mysql-bin.log --binlog-format=row
+  - docker run -p 127.0.0.1:3306:3306 --name mysql-51 -e MYSQL_ROOT_PASSWORD= -d mtirsel/mysql-5.1 mysqld
   - docker ps -a
 
 
