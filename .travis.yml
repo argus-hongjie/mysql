@@ -7,13 +7,12 @@ services:
 jdk: oraclejdk8
 
 before_install:
-  - telnet 127.0.0.1 3306
   - mysqladmin ping -h127.0.0.1 -P3306
   - sudo service mysql status
   - mysql -u root -p mysql --version
 
   - sudo /etc/init.d/mysql stop
-  
+
   - sudo service mysql status
   - mysql -u root -p mysql --version
   - telnet 127.0.0.1 3306
