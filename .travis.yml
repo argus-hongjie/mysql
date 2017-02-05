@@ -1,5 +1,6 @@
 language: java
 
+services: docker
 
 services:
   - docker
@@ -25,7 +26,7 @@ before_install:
   - 'docker run -p 127.0.0.1:3306:3306 --name mysql-51 -e MYSQL_ROOT_PASSWORD=mysql -d mtirsel/mysql-5.1 mysqld --datadir=/var/lib/mysql --user=mysql --server-id=1 --log-bin=/var/lib/mysql/mysql-bin.log --binlog-format=row > "${container_id}"'
   - docker ps -a
   - docker exec -i mysql-51 mysql -uroot -pmysql --version
-  - sudo docker exec "$(cat ${container_id})" mysql -uroot -pmysql -e 'show databases;'
+  - sudo docker exec "$(cat ${container_id})" mysql -uroot -pmysql -h 127.0.0.1 -e 'show databases;'
   #- sudo service mysql status
   #- mysqladmin ping -h127.0.0.1 -P3306
   #- mysql -u root -P 3306 -h 127.0.0.1 --version
