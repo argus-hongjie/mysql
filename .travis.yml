@@ -23,20 +23,20 @@ before_install:
       echo "$(date) - still trying 3351"
       sleep 1
     done
-    echo "$(date) - connected successfully 3351"
-    
-  - docker exec -i mysql-51 mysql -uroot -pmysql --version
-  - docker exec -i mysql-51 mysql -uroot -pmysql -h 127.0.0.1 <<< "select now();"
+  - echo "$(date) - connected successfully 3351"
+
+  - docker exec -i mysql-51 mysql -uroot --version
+  - docker exec -i mysql-51 mysql -uroot <<< "select now();"
   - echo "select now();" > dump.sql
-  - docker exec -i mysql-51 mysql -uroot -pmysql -h 127.0.0.1 < dump.sql
+  - docker exec -i mysql-51 mysql -uroot < dump.sql
   
-  - docker exec -i mysql-51 mysql -uroot -pmysql -h 127.0.0.1 <<< "CREATE DATABASE IF NOT EXISTS test;"
-  - docker exec -i mysql-51 mysql -uroot -pmysql -h 127.0.0.1 <<< "create user 'bulletinage'@'%' IDENTIFIED BY 'bulletinage';"
-  - docker exec -i mysql-51 mysql -uroot -pmysql -h 127.0.0.1 <<< "GRANT ALL PRIVILEGES ON *.* TO 'bulletinage'@'%';"
-  - docker exec -i mysql-51 mysql -uroot -pmysql -h 127.0.0.1 -e 'show databases;'
+  - docker exec -i mysql-51 mysql -uroot <<< "CREATE DATABASE IF NOT EXISTS test;"
+  - docker exec -i mysql-51 mysql -uroot <<< "create user 'bulletinage'@'%' IDENTIFIED BY 'bulletinage';"
+  - docker exec -i mysql-51 mysql -uroot <<< "GRANT ALL PRIVILEGES ON *.* TO 'bulletinage'@'%';"
+  - docker exec -i mysql-51 mysql -uroot -e 'show databases;'
   - cd $TRAVIS_BUILD_DIR/mysql51/src/test/resources/mysql
-  - docker exec -i mysql-51 mysql test -uroot -pmysql -h 127.0.0.1 < table.sql
-  - docker exec -i mysql-51 mysql test -uroot -pmysql -h 127.0.0.1 < ps.sql
+  - docker exec -i mysql-51 mysql test -uroot < table.sql
+  - docker exec -i mysql-51 mysql test -uroot < ps.sql
 
 script:
-  - cd $TRAVIS_BUILD_DIR/mysql51 && mvn clean test -Ddb.url="127.0.0.1:3351" -Ddb.name=test -Ddb.user=bulletinage -Ddb.password=bulletinage
+  - cd $TRAVIS_BUILD_DIR/mysql51 && mvn clean test -Ddb.url="localhost:3351" -Ddb.name=test -Ddb.user=bulletinage -Ddb.password=bulletinage
