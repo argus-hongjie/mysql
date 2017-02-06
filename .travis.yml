@@ -17,4 +17,13 @@ before_install:
 
 script:
   - ./test.sh
-  - mysql -u root -P 3351 -h 127.0.0.1 --version
+  - docker exec -i mysql-51 mysql -uroot -pmysql --version
+  - docker exec -i mysql-51 mysql -uroot -pmysql -h 127.0.0.1 <<< "select now();"
+  - echo "select now();" > dump.sql
+  - docker exec -i mysql-51 mysql -uroot -pmysql -h 127.0.0.1 < dump.sql
+  # Check to make sure we can connect to MySQL via Unix socket.
+  - >
+    docker exec -i mysql-51 mysql -uroot -pmysql -e 'show databases;' | grep -q 'information_schema' && (echo 'MySQL running normally' && exit 0) || (echo 'MySQL not running' && exit 1)
+  # Check to make sure we can connect to MySQL via TCP.
+  - >
+    docker exec -i mysql-51 mysql -uroot -pmysql -h 127.0.0.1 -e 'show databases;' | grep -q 'information_schema' && (echo 'MySQL running normally' && exit 0) || (echo 'MySQL not running' && exit 1)
