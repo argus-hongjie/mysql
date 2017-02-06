@@ -10,7 +10,7 @@ import org.junit.Test;
 import com.google.common.collect.ImmutableMap;
 
 
-public class DBClientAttentePointageTest {
+public class DBClientAttentePointageTest extends MyIntegrationTest{
 
 	private DBClientAttentePointage dbClient = new DBClientAttentePointage();
 	private static final MysqlDataSourceManager mysql = MysqlDataSourceManager.getInstance();

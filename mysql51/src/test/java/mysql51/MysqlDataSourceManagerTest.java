@@ -7,7 +7,7 @@ import org.junit.Test;
 
 import com.google.common.collect.ImmutableMap;
 
-public class MysqlDataSourceManagerTest {
+public class MysqlDataSourceManagerTest extends MyIntegrationTest{
 	private static final MysqlDataSourceManager mysql = MysqlDataSourceManager.getInstance();
 	
 	@Test
