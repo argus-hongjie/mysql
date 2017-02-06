@@ -91,8 +91,8 @@ public class PropertyHandler {
 			properties.clear();
 			properties.putAll(map);
 			logger.warn("______________________________________");
-			logger.warn("jdbc.host="+properties.getProperty("jdbc.host"));
-			logger.warn("jdbc.database.name="+properties.getProperty("jdbc.database.name"));
+			logger.warn("bulletinage.db.url="+properties.getProperty("bulletinage.db.url"));
+			logger.warn("bulletinage.db.name="+properties.getProperty("bulletinage.db.name"));
 			logger.info("chargement du fichier properties avec succès.");
 		} catch (FileNotFoundException e) {
 			logger.error("Erreur de récupération du fichier properties : " + e.getMessage());
