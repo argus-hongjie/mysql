@@ -11,20 +11,16 @@ services:
 jdk: oraclejdk8
 
 before_install:
-  #- docker pull mtirsel/mysql-5.1
-  #- docker run -p 127.0.0.1:3351:3306 --name mysql-51 -e MYSQL_ROOT_PASSWORD=mysql -d mtirsel/mysql-5.1 mysqld --datadir=/var/lib/mysql --user=mysql --server-id=1 --log-bin=/var/lib/mysql/mysql-bin.log --binlog-format=row
   - docker pull ruwen/mysql-server-5.1
   - docker run -p 3351:3306 --name mysql-51 -d ruwen/mysql-server-5.1
   - docker ps -a
 
-  #- ./test.sh
   - >
     while ! mysqladmin ping -h127.0.0.1 -P3351 --silent; do
       echo "$(date) - still trying 3351"
       sleep 1
     done
   - echo "$(date) - connected successfully 3351"
-
 
   - docker exec -i mysql-51 mysql -uroot --version
   - docker exec -i mysql-51 mysql -uroot <<< "select now();"
@@ -40,4 +36,4 @@ before_install:
   - docker exec -i mysql-51 mysql test -uroot < ps.sql
 
 script:
-  - cd $TRAVIS_BUILD_DIR/mysql51 && mvn clean test -Ddb.url="localhost:3351" -Ddb.name=test -Ddb.user=bulletinage -Ddb.password=bulletinage
+  - cd $TRAVIS_BUILD_DIR/mysql51 && mvn clean test -Ddb.url="127.0.0.1:3351" -Ddb.name=test -Ddb.user=bulletinage -Ddb.password=bulletinage
