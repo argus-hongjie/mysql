@@ -19,9 +19,9 @@ before_install:
 
   - ./test.sh
   - docker exec -i mysql-51 mysql -uroot -pmysql --version
-  - docker exec -i mysql-51 mysql -uroot -pmysql -h 127.0.0.1 <<< "select now();"
+  - docker exec -i mysql-51 mysql -uroot -pmysql <<< "select now();"
   - echo "select now();" > dump.sql
-  - docker exec -i mysql-51 mysql -uroot -pmysql -h 127.0.0.1 < dump.sql
+  - docker exec -i mysql-51 mysql -uroot -pmysql < dump.sql
   
   - docker exec -i mysql-51 mysql -uroot -pmysql -h 127.0.0.1 <<< "CREATE DATABASE IF NOT EXISTS test;"
   - docker exec -i mysql-51 mysql -uroot -pmysql -h 127.0.0.1 <<< "create user 'bulletinage'@'%' IDENTIFIED BY 'bulletinage';"
