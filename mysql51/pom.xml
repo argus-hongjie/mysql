@@ -6,9 +6,9 @@
   
   <dependencies>
   		<dependency>
-  			<groupId>org.zhj2074</groupId>
-		  <artifactId>dep</artifactId>
-		  <version>1.0</version>
+			<groupId>fr.argus.socle</groupId>
+			<artifactId>socle</artifactId>
+			<version>1.0</version>
   		</dependency>
 		<dependency>
 		     <groupId>junit</groupId>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+
+<!-- propriétés de la Datasource : dev config -->
+	<entry key="config">socle.jar/${project.activeProfiles}/config.xml</entry>
+	<entry key="jdbc.datasource.name">Postgres DataSource</entry>
+	<entry key="jdbc.host">${jdbc.host}</entry>
+	<entry key="jdbc.database.port">5432</entry>
+	<entry key="jdbc.database.name">presse</entry>
+	<entry key="jdbc.username">postgres</entry>
+	<entry key="jdbc.password"></entry>
+	<entry key="jdbc.pool.size">10</entry>
+</properties>
+
