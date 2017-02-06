@@ -34,6 +34,8 @@ before_install:
   - cd $TRAVIS_BUILD_DIR/mysql51/src/test/resources/mysql
   - docker exec -i mysql-51 mysql test -uroot < table.sql
   - docker exec -i mysql-51 mysql test -uroot < ps.sql
+  - docker exec -i mysql-51 mysql test -uroot -e 'show tables;'
 
 script:
+  - docker exec -i mysql-51 mysql test -uroot -e 'show tables;'
   - cd $TRAVIS_BUILD_DIR/mysql51 && mvn clean test -Ddb.url="127.0.0.1:3351" -Ddb.name=test -Ddb.user=bulletinage -Ddb.password=bulletinage
