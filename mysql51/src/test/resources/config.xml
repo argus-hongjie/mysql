@@ -6,8 +6,8 @@
 	<entry key="config">attentepointage.jar/test/config.xml</entry>
 	<entry key="bulletinage.db.driver.class.name">com.mysql.jdbc.Driver</entry>
 	<entry key="bulletinage.db.url">jdbc:mysql://${db.url}</entry>
-	<entry key="bulletinage.db.name">$db.name}</entry>
-	<entry key="bulletinage.db.username">$db.user}</entry>
-	<entry key="bulletinage.db.password">$db.password}</entry>		
+	<entry key="bulletinage.db.name">${db.name}</entry>
+	<entry key="bulletinage.db.username">${db.user}</entry>
+	<entry key="bulletinage.db.password">${db.password}</entry>		
 </properties>
 
