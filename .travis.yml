@@ -14,8 +14,6 @@ before_install:
   - docker pull mtirsel/mysql-5.1
   - docker run -p 127.0.0.1:3351:3306 --name mysql-51 -e MYSQL_ROOT_PASSWORD=mysql -d mtirsel/mysql-5.1 mysqld --datadir=/var/lib/mysql --user=mysql --server-id=1 --log-bin=/var/lib/mysql/mysql-bin.log --binlog-format=row
   - docker ps -a
-
-script:
   - ./test.sh
   - docker exec -i mysql-51 mysql -uroot -pmysql --version
   - docker exec -i mysql-51 mysql -uroot -pmysql -h 127.0.0.1 <<< "select now();"
@@ -27,3 +25,15 @@ script:
   # Check to make sure we can connect to MySQL via TCP.
   - >
     docker exec -i mysql-51 mysql -uroot -pmysql -h 127.0.0.1 -e 'show databases;' | grep -q 'information_schema' && (echo 'MySQL running normally' && exit 0) || (echo 'MySQL not running' && exit 1)
+  
+  - docker exec -i mysql-51 mysql -uroot -pmysql -h 127.0.0.1 <<< "CREATE DATABASE IF NOT EXISTS test;"
+  - docker exec -i mysql-51 mysql -uroot -pmysql -h 127.0.0.1 <<< "create user 'bulletinage'@'%' IDENTIFIED BY 'bulletinage';"
+  - docker exec -i mysql-51 mysql -uroot -pmysql -h 127.0.0.1 <<< "GRANT ALL PRIVILEGES ON *.* TO 'bulletinage'@'%';"
+  - cd $TRAVIS_BUILD_DIR/mysql51/src/test/resources/mysql
+  - docker exec -i mysql-51 mysql -uroot -pmysql -h 127.0.0.1 < table.sql
+  - docker exec -i mysql-51 mysql -uroot -pmysql -h 127.0.0.1 < ps.sql
+  - docker exec -i mysql-51 mysql -uroot -pmysql -h 127.0.0.1 -e 'show databases;'
+
+
+script:
+  - cd $TRAVIS_BUILD_DIR/mysql51 && mvn clean test -Ddb.url="127.0.0.1:3351" -Ddb.name=test -Ddb.user=bulletinage -Ddb.password=bulletinage
