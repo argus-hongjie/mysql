@@ -43,7 +43,7 @@ public class DBClientAttentePointage {
                 throw new JdbcUpdateAffectedIncorrectNumberOfRowsException(sqlMajArgusDemandePointage, 1, affectedRows);
 			}
         } catch (SQLException e) {
-			log.error("Erreur lors de l'insertion dans la table `argus-bulletinage`.`argus_demande_pointage` : " + e.getMessage());
+			log.error("Erreur lors de l'insertion dans la table `argus_demande_pointage` : " + e.getMessage());
 			throw (e);
 		}
 	}
