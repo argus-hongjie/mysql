@@ -20,7 +20,7 @@ public class DBClientAttentePointageTest {
 	public void testMajArgusDemandePointage() throws SQLException {
 		dbClient.majArgusDemandePointage("632966", 632966, "titreTest", "84798465352143", "20161114/0131940202408.pdf", "20161114", "20161114 11:11:11");
 		
-		Map<String, Object> map = mysql.getNamedTemplate().queryForMap("SELECT * FROM `argus-bulletinage`.`argus_demande_pointage` WHERE TITRE = :titre",  ImmutableMap.of("titre","titreTest"));
+		Map<String, Object> map = mysql.getNamedTemplate().queryForMap("SELECT * FROM `argus_demande_pointage` WHERE TITRE = :titre",  ImmutableMap.of("titre","titreTest"));
 		assertThat(map.get("TITRE")).isEqualTo("titreTest");
 	}
 
