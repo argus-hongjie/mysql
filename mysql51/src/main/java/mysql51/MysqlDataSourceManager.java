@@ -8,6 +8,7 @@ import org.apache.commons.dbcp2.BasicDataSource;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcCall;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 
@@ -25,6 +26,7 @@ public class MysqlDataSourceManager {
 
 	private final NamedParameterJdbcTemplate namedTemplate;
 	private final JdbcTemplate jdbcTemplate;
+	private final NamedParameterJdbcCall namedJdbcCall;
 	private final DataSourceTransactionManager txManager;
 	private static final Logger logger = LogManager.getLogger(MysqlDataSourceManager.class);
 
@@ -32,7 +34,12 @@ public class MysqlDataSourceManager {
 		init();
 		namedTemplate = new NamedParameterJdbcTemplate(source);
 		jdbcTemplate = new JdbcTemplate(source);
+		namedJdbcCall = new NamedParameterJdbcCall(source);
 		txManager = new DataSourceTransactionManager(source);
+	}
+
+	public NamedParameterJdbcCall getNamedJdbcCall() {
+		return namedJdbcCall;
 	}
 
 	private static class MysqlDataSourceManagerHolder {
