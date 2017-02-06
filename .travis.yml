@@ -25,6 +25,7 @@ before_install:
     done
   - echo "$(date) - connected successfully 3351"
 
+
   - docker exec -i mysql-51 mysql -uroot --version
   - docker exec -i mysql-51 mysql -uroot <<< "select now();"
   - echo "select now();" > dump.sql
