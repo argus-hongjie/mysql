@@ -16,6 +16,7 @@ jdk: oraclejdk8
 
 before_install:
   - psql -U postgres -c "CREATE DATABASE presse OWNER postgres;"
+  - cd $TRAVIS_BUILD_DIR/dep && mvn clean test -Ddb.url="127.0.0.1:3351" -Ddb.name=test -Ddb.user=bulletinage -Ddb.password=bulletinage
   - docker pull ruwen/mysql-server-5.1
   - docker run -p 3351:3306 --name mysql-51 -d ruwen/mysql-server-5.1
   - docker ps -a

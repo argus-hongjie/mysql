@@ -5,6 +5,11 @@
   <version>0.0.1-SNAPSHOT</version>
   
   <dependencies>
+  		<dependency>
+  			<groupId>org.zhj2074</groupId>
+		  <artifactId>dep</artifactId>
+		  <version>1.0</version>
+  		</dependency>
 		<dependency>
 		     <groupId>junit</groupId>
 		     <artifactId>junit</artifactId>
