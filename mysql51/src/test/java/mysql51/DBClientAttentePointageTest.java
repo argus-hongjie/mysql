@@ -29,5 +29,11 @@ public class DBClientAttentePointageTest extends MyIntegrationTest{
 		Map<String, ?> retour = dbClient.callWsEsb(null, "20161114", "20161114 11:11:11", "84798465352143", "20161114/0131940202408.pdf", false);
 		assertThat(retour.get("code_retour")).isEqualTo("-1");
 	}
+	
+	@Test 
+	public void Test() {
+		new PropertyHandler().getInstance();
+		System.out.println("test not finished");
+	}
 
 }
