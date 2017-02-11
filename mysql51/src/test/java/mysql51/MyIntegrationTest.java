@@ -7,10 +7,8 @@ import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.support.DefaultTransactionDefinition;
 
-import fr.argus.socle.util.IntegrationTest;
 
-
-public class MyIntegrationTest extends IntegrationTest{
+public class MyIntegrationTest{
 	
 	protected static MysqlDataSourceManager mysql = MysqlDataSourceManager.getInstance();
 	private static PlatformTransactionManager mysqlTxMgr;

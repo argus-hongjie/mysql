@@ -6,8 +6,8 @@
   
   <dependencies>
   		<dependency>
-			<groupId>fr.argus.socle</groupId>
-			<artifactId>socle</artifactId>
+			<groupId>org.zhj2074</groupId>
+			<artifactId>dep</artifactId>
 			<version>1.0</version>
   		</dependency>
 		<dependency>
