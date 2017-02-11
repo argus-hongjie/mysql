@@ -14,11 +14,9 @@ addons:
 jdk: oraclejdk8
 cache:
   directories:
-    - $HOME/.m2/repository
-    - $HOME/.sonar
-    - server/sonar-web/node
-    - server/sonar-web/node_modules
-    - $HOME/jvm
+    - '$HOME/.m2/repository'
+    - '$HOME/.sonar/cache'
+    -  $HOME/jvm
 
 before_cache:
   # remove all the artifacts (JAR, ZIP) that are installed in local repo because of mvn deploy
@@ -26,7 +24,6 @@ before_cache:
   - find $HOME/.m2 -name resolver-status.properties -exec rm {} \;
 before_install:
 - psql -U postgres -c "CREATE DATABASE presse OWNER postgres;"
-- cd $TRAVIS_BUILD_DIR/dep && mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent install sonar:sonar
 - docker pull ruwen/mysql-server-5.1
 - docker run -p 3351:3306 --name mysql-51 -d ruwen/mysql-server-5.1
 - docker ps -a
@@ -50,6 +47,7 @@ before_install:
 - docker exec -i mysql-51 mysql test -uroot < ps.sql
 - docker exec -i mysql-51 mysql test -uroot -e 'show tables;'
 script:
+- cd $TRAVIS_BUILD_DIR/dep && mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent install sonar:sonar
 - docker exec -i mysql-51 mysql test -uroot -e 'show tables;'
 - cd $TRAVIS_BUILD_DIR/mysql51 && mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent test sonar:sonar -Ddb.url="127.0.0.1:3351" -Ddb.name=test
   -Ddb.user=bulletinage -Ddb.password=bulletinage
