@@ -32,7 +32,7 @@ public class PropertyHandler {
 	/**
 	 * Constructeur privé.
 	 */
-	PropertyHandler() {
+	protected PropertyHandler() {
 		init();
 	}
 
