@@ -1,0 +1,5 @@
+2017-02-11 12:27:26 [main] WARN  PropertyHandler:78 - load resources from file:/Users/hongjiezhang/dev/mysql/mysql51/target/test-classes/config.xml
+2017-02-11 12:27:26 [main] WARN  PropertyHandler:83 - config file=attentepointage.jar/test/config.xml
+2017-02-11 12:27:26 [main] WARN  PropertyHandler:93 - ______________________________________
+2017-02-11 12:27:26 [main] WARN  PropertyHandler:94 - bulletinage.db.url=jdbc:mysql://${db.url}
+2017-02-11 12:27:26 [main] WARN  PropertyHandler:95 - bulletinage.db.name=${db.name}
