@@ -18,6 +18,7 @@ cache:
   - $HOME/.m2/repository
   - $HOME/.sonar/cache
   - $HOME/jvm
+  
 before_cache:
 - rm -rf $HOME/.m2/repository/org/zhj2074
 - find $HOME/.m2 -name resolver-status.properties -exec rm {} \;
