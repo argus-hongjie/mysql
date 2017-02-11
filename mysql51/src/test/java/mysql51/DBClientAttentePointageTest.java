@@ -30,7 +30,6 @@ public class DBClientAttentePointageTest extends MyIntegrationTest{
 		assertThat(retour.get("code_retour")).isEqualTo("-1");
 	}
 	
-	@SuppressWarnings("static-access")
 	@Test 
 	public void Test() {
 		new PropertyHandler().getInstance();
