@@ -8,7 +8,12 @@ public class badClassName {
 	}
 	
 	public void BadMethodName(){
+		System.out.println("asdfsa");
 		return;
 	}
 
+	public void BadMethodName2(){
+		System.out.println("asdfsa");
+		return;
+	}
 }
