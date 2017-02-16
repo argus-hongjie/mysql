@@ -50,7 +50,7 @@ script:
 - cd $TRAVIS_BUILD_DIR/dep && mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent install sonar:sonar
 - docker exec -i mysql-51 mysql test -uroot -e 'show tables;'
 - cd $TRAVIS_BUILD_DIR/mysql51 && mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent test sonar:sonar -Ddb.url="127.0.0.1:3351" -Ddb.name=test -Ddb.user=bulletinage -Ddb.password=bulletinage
-after_success:
+after_script:
 - |
   curl -u 2e64492ad19621634d061579a45d1d32b3b8286d: --data "key=org.zhj2074:dep" https://sonarqube.com/api/projects/delete
   curl -u 2e64492ad19621634d061579a45d1d32b3b8286d: --data "key=org.zhj2074:mysql51" https://sonarqube.com/api/projects/delete
