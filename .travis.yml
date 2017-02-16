@@ -16,12 +16,12 @@ jdk: oraclejdk8
 cache:
   directories:
   - $HOME/.m2/repository
-  - $HOME/.sonar/cache
-  - $HOME/jvm
+#  - $HOME/.sonar/cache
+#  - $HOME/jvm
   
-before_cache:
-- rm -rf $HOME/.m2/repository/org/zhj2074
-- find $HOME/.m2 -name resolver-status.properties -exec rm {} \;
+#before_cache:
+#- rm -rf $HOME/.m2/repository/org/zhj2074
+#- find $HOME/.m2 -name resolver-status.properties -exec rm {} \;
 before_install:
 - psql -U postgres -c "CREATE DATABASE presse OWNER postgres;"
 - docker pull ruwen/mysql-server-5.1
@@ -47,11 +47,13 @@ before_install:
 - docker exec -i mysql-51 mysql test -uroot < ps.sql
 - docker exec -i mysql-51 mysql test -uroot -e 'show tables;'
 script:
-- cd $TRAVIS_BUILD_DIR/dep && mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent
-  install sonar:sonar
+- cd $TRAVIS_BUILD_DIR/dep && mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent install sonar:sonar
 - docker exec -i mysql-51 mysql test -uroot -e 'show tables;'
-- cd $TRAVIS_BUILD_DIR/mysql51 && mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent
-  test sonar:sonar -Ddb.url="127.0.0.1:3351" -Ddb.name=test -Ddb.user=bulletinage
-  -Ddb.password=bulletinage
-
-    
+- cd $TRAVIS_BUILD_DIR/mysql51 && mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent test sonar:sonar -Ddb.url="127.0.0.1:3351" -Ddb.name=test -Ddb.user=bulletinage -Ddb.password=bulletinage
+#after_script:
+#- |
+#  curl -u 2e64492ad19621634d061579a45d1d32b3b8286d: --data "key=org.zhj2074:dep" https://sonarqube.com/api/projects/bulk_delete
+#  curl -u 2e64492ad19621634d061579a45d1d32b3b8286d: --data "key=org.zhj2074:mysql51" https://sonarqube.com/api/projects/delete
+#  curl -u 2e64492ad19621634d061579a45d1d32b3b8286d: --data "key=org.zhj2074:dep,org.zhj2074:mysql51" https://sonarqube.com/api/projects/bulk_delete
+#  curl -u 2e64492ad19621634d061579a45d1d32b3b8286d: --data "key=org.zhj2074:dep&name=dep" https://sonarqube.com/api/projects/create
+#  curl -u 2e64492ad19621634d061579a45d1d32b3b8286d: --data "key=org.zhj2074:mysql51&name=mysql51" https://sonarqube.com/api/projects/create
