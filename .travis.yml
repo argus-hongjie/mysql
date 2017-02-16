@@ -16,12 +16,12 @@ jdk: oraclejdk8
 cache:
   directories:
   - $HOME/.m2/repository
-  - $HOME/.sonar/cache
-  - $HOME/jvm
+#  - $HOME/.sonar/cache
+#  - $HOME/jvm
   
-before_cache:
-- rm -rf $HOME/.m2/repository/org/zhj2074
-- find $HOME/.m2 -name resolver-status.properties -exec rm {} \;
+#before_cache:
+#- rm -rf $HOME/.m2/repository/org/zhj2074
+#- find $HOME/.m2 -name resolver-status.properties -exec rm {} \;
 before_install:
 - psql -U postgres -c "CREATE DATABASE presse OWNER postgres;"
 - docker pull ruwen/mysql-server-5.1
